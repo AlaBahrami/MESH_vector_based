@@ -6,7 +6,7 @@ extarct new_rank.
 
 Reference: NC-db-Reindexing
 
-@author: Ala Bahrami
+@author: Dan & Brenden
 """
 # %% import modules 
 import os

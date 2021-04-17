@@ -6,13 +6,13 @@ extarct new_rank.
 
 Reference: NC-db-Reindexing
 
-@author: Dan & Brenden
+@author: Dan and Brenden
 """
 # %% import modules 
 import os
 import numpy as np
 import xarray as xs
-# from   datetime import date
+from   datetime import date
 
 def new_rank_extract(in_ddb):
         #%% reading the input DDB
@@ -69,4 +69,62 @@ def new_rank_extract(in_ddb):
                 current_next -= 1 
 
         new_rank = np.flip(new_rank)
-        return(new_rank)
+        
+        # %% reordering 
+        for m in ['basin_area', 'length', 'slope', 'lon', 'lat', 'hruid', 
+                  'seg_id', 'seg_hr_id', 'tosegment', 'width', 'manning']:
+            drainage_db[m].values = drainage_db[m].values[new_rank]
+ 
+        # Reorder the new 'Next'.
+        new_next = np.array(new_next)[new_rank]
+
+        # %% Adding the updated Rank and Next variables to the file
+        drainage_db['Rank'] = (['n'], np.array(range(1, len(new_rank) + 1), 
+                              dtype = 'int32')) # ordered list from 1:NA
+        drainage_db['Rank'].attrs.update(standard_name = 'Rank', 
+                            long_name = 'Element ID', units = '1', _FillValue = -1)
+        
+        drainage_db['Next'] = (['n'], new_next.astype('int32')) # reordered 'new_next'
+        drainage_db['Next'].attrs.update(standard_name = 'Next', 
+                           long_name = 'Receiving ID', units = '1', _FillValue = -1)
+
+        # %% Adding missing attributes and renaming variables
+        # Add 'axis' and missing attributes for the 'lat' variable.
+        drainage_db['lat'].attrs['standard_name'] = 'latitude'
+        drainage_db['lat'].attrs['units'] = 'degrees_north'
+        drainage_db['lat'].attrs['axis'] = 'Y'
+         
+        # Add 'axis' and missing attributes for the 'lon' variable.
+        drainage_db['lon'].attrs['standard_name'] = 'longitude'
+        drainage_db['lon'].attrs['units'] = 'degrees_east'
+        drainage_db['lon'].attrs['axis'] = 'X'
+         
+        # Add or overwrite 'grid_mapping' for each variable (except axes).
+        for v in drainage_db.variables:
+            if (drainage_db[v].attrs.get('axis') is None):
+                drainage_db[v].attrs['grid_mapping'] = 'crs'
+         
+        # Add the 'crs' itself (if none found).
+        if (drainage_db.variables.get('crs') is None):
+            drainage_db['crs'] = ([], np.int32(1))
+            drainage_db['crs'].attrs.update(grid_mapping_name = 'latitude_longitude', longitude_of_prime_meridian = 0.0, semi_major_axis = 6378137.0, inverse_flattening = 298.257223563)
+         
+        # Rename variables.
+        for old, new in zip(['basin_area', 'length', 'slope', 'manning'], ['GridArea', 'ChnlLength', 'ChnlSlope', 'R2N']):
+            drainage_db = drainage_db.rename({old: new})
+         
+        # Rename the 'subbasin' dimension (from 'n').
+        drainage_db = drainage_db.rename({'n': 'subbasin'})
+        
+        # %% Specifying the NetCDF "featureType"
+        # Add a 'time' axis with static values set to today (in this case, time is not actually treated as a dimension).
+        drainage_db['time'] = (['subbasin'], np.zeros(len(new_rank)))
+        drainage_db['time'].attrs.update(standard_name = 'time', units = ('days since %s 00:00:00' % date.today().strftime('%Y-%m-%d')), axis = 'T')
+         
+        # Set the 'coords' of the dataset to the new axes.
+        drainage_db = drainage_db.set_coords(['time', 'lon', 'lat'])
+         
+        # Add (or overwrite) the 'featureType' to identify the 'point' dataset.
+        drainage_db.attrs['featureType'] = 'point'
+        
+        return new_rank, drainage_db

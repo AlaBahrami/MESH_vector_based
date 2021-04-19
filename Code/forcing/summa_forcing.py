@@ -170,6 +170,6 @@ data_out['crs'] = drainage_db['crs'].copy()
 data_out.encoding.update(unlimited_dims = 'time')
 
 # %% save netcdf to an output 
-sum_forc.to_netcdf(output_forc)
+data_out.to_netcdf(output_forc)
 
 

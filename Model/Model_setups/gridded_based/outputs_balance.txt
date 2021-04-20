@@ -1,0 +1,12 @@
+# SNO      D tsi 15 17 18 21 36 37
+# SNO      D tsk 98 104 117 126 149 253 257 259 267
+# ROF  D nc
+# ROF  D nc gru 2
+# PREC D nc gru 2
+# ET   D nc gru 2
+#
+# SNO      D   r2c
+# WSNO     D H  tsi 15 17 18 21 36 37
+# WSNO     D H  tsk 98 104 117 126 149 253 257 259 267
+# WSNO     D   r2c
+

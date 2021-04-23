@@ -11,10 +11,10 @@ Programmer(s)
 Revision History
         
 See also 
-        
+    1_intersect_modis_tif_and_merit_hydro_shape.py written by Wouter    
 Reference 
-    1_intersect_modis_tif_and_merit_hydro_shape.py written by Wouter
-    
+    https://docs.qgis.org/3.16/en/docs/user_manual/processing_algs/qgis/rasteranalysis.html#zonal-histogram
+      
 """
 # %% import module 
 import processing

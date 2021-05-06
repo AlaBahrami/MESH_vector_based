@@ -8,7 +8,10 @@ Purpose
 Programmer(s)
     Ala Bahrami
 Revision History
-    20210422 -- Initial version created    
+    20210422 -- Initial version created  
+    20210504 -- 1) changed dimension name from 'lc_type' to 'ngru' and variable 
+    name from 'lc_frac' to 'GRU'. 2) Added LandUse variable
+    20210505 -- append the LandUse information to drainage_ddb 
 See also 
     lc_extract.py    
 Reference 
@@ -26,6 +29,7 @@ from   summa_reindex import new_rank_extract
 in_lc       = 'D:/Basin_setups/BowBanff/LC/intersect_output/bow_NALCMS_LC_intersect.shp'
 input_ddb   = 'D:/programing/python/vector_based_routing/Input/network_topology_Bow_Banff.nc'
 out_lc      = 'D:/programing/python/vector_based_routing/Output/MESH_LC_FRAC.nc'
+output_ddb  = 'D:/programing/python/vector_based_routing/Output/MESH_drainage_database.nc'
 
 # %% reading the input landcover
 lc = gpd.read_file(in_lc)
@@ -49,10 +53,14 @@ for i in (range(1,m)):
     fid = np.where(lc.columns == st1)[0]
     if (fid.size == 0):
         print ('land cover %s is not the list of extracted histogram' % lc_type[i-1])
+        p = i-1 
 
 # adding lancover dump
 st1 =   'NALCMS'+'_'+ 'Dump'
-st = np.append(st, st1)    
+st = np.append(st, st1)
+
+del lc_type[p]
+lc_type = np.append(lc_type, 'Dump')    
 
 # %% extract indices of lc based on the drainage database
 n = len(drainage_db.hruid)
@@ -84,7 +92,8 @@ tt = drainage_db['time'].values
 
 lc_ds =  xs.Dataset(
     {
-        "lc_frac": (["subbasin", "lc_type"], lc_frac),
+        "GRU": (["subbasin", "ngru"], lc_frac),
+        "LandUse": (["ngru"], lc_type),
     },
     coords={
         "lon": (["subbasin"], lon),
@@ -111,12 +120,25 @@ lc_ds['lon'].attrs['axis'] = 'X'
 
 # editing time attribute
 lc_ds['time'].attrs.update(standard_name = 'time', 
-                                 units = ('days since %s 00:00:00' % date.today().strftime('%Y-%m-%d')), axis = 'T')
+                                 units = ('days since %s 00:00:00' % date.today().strftime('%Y-%m-%d')), 
+                                 axis = 'T')
 
 # coordinate system
 lc_ds['crs'] = drainage_db['crs'].copy()
 
+# %% add land cover information to existing drainage database 
+drainage_db["GRU"] = (["subbasin", "ngru"], lc_frac)
+drainage_db['GRU'].attrs['standard_name'] = 'GRU'
+drainage_db['GRU'].attrs['long_name'] = 'Group Response Unit'
+drainage_db['GRU'].attrs['units'] = '-'
+drainage_db['GRU'].attrs['_FillValue'] = -1
+
+drainage_db["LandUse"] = (["ngru"], lc_type)
+
+# Set the 'coords' of the dataset to the new axes.
+drainage_db = drainage_db.set_coords(['time', 'lon', 'lat'])
+
+drainage_db.to_netcdf(output_ddb)
+ 
 # %% Save the new dataset to file.
 lc_ds.to_netcdf(out_lc)
-
-

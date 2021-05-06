@@ -12,6 +12,7 @@ Revision History
     20210504 -- 1) changed dimension name from 'lc_type' to 'ngru' and variable 
     name from 'lc_frac' to 'GRU'. 2) Added LandUse variable
     20210505 -- append the LandUse information to drainage_ddb 
+    20210506-- changed 'ngru' dimension to 'gru' to be consistent with MESH code 
 See also 
     lc_extract.py    
 Reference 
@@ -92,7 +93,7 @@ tt = drainage_db['time'].values
 
 lc_ds =  xs.Dataset(
     {
-        "GRU": (["subbasin", "ngru"], lc_frac),
+        "GRU": (["subbasin", "gru"], lc_frac),
         "LandUse": (["ngru"], lc_type),
     },
     coords={
@@ -127,13 +128,13 @@ lc_ds['time'].attrs.update(standard_name = 'time',
 lc_ds['crs'] = drainage_db['crs'].copy()
 
 # %% add land cover information to existing drainage database 
-drainage_db["GRU"] = (["subbasin", "ngru"], lc_frac)
+drainage_db["GRU"] = (["subbasin", "gru"], lc_frac)
 drainage_db['GRU'].attrs['standard_name'] = 'GRU'
 drainage_db['GRU'].attrs['long_name'] = 'Group Response Unit'
 drainage_db['GRU'].attrs['units'] = '-'
 drainage_db['GRU'].attrs['_FillValue'] = -1
 
-drainage_db["LandUse"] = (["ngru"], lc_type)
+drainage_db["LandUse"] = (["gru"], lc_type)
 
 # Set the 'coords' of the dataset to the new axes.
 drainage_db = drainage_db.set_coords(['time', 'lon', 'lat'])

@@ -21,7 +21,7 @@ import processing
 
 # %% run the algorithm 
 processing.run("native:zonalhistogram" , {'COLUMN_PREFIX' : 'NALCMS_',
-            'INPUT_RASTER' : 'D:/Basin_setups/BowBanff/LC/res90_reclass_domain_landcover_30m_buffered_glaciers.tif', 
+            'INPUT_RASTER' : 'D:/Basin_setups/BowBanff/LC/BowBanff_LC_NALCMS_30M_SlopAsp_11GRU.tif', 
             'INPUT_VECTOR' : 'D:/Basin_setups/BowBanff/Basin/Summa/bow_distributed.shp', 
-            'OUTPUT' : 'D:/Basin_setups/BowBanff/LC/intersect_output/bow_NALCMS_LC_intersect.shp', 
+            'OUTPUT' : 'D:/Basin_setups/BowBanff/LC/intersect_output/bow_NALCMS_LC_intersect_11GRU.shp', 
             'RASTER_BAND' : 1 })

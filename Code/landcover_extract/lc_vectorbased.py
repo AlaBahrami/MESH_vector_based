@@ -27,10 +27,11 @@ from   datetime import date
 from   summa_reindex import new_rank_extract
 
 # %% directory of input files
-in_lc       = 'D:/Basin_setups/BowBanff/LC/intersect_output/bow_NALCMS_LC_intersect.shp'
+#in_lc       = 'D:/Basin_setups/BowBanff/LC/intersect_output/bow_NALCMS_LC_intersect.shp'
+in_lc       = 'D:/Basin_setups/BowBanff/LC/intersect_output/bow_NALCMS_LC_intersect_11GRU.shp'
 input_ddb   = 'D:/programing/python/vector_based_routing/Input/network_topology_Bow_Banff.nc'
 out_lc      = 'D:/programing/python/vector_based_routing/Output/MESH_LC_FRAC.nc'
-output_ddb  = 'D:/programing/python/vector_based_routing/Output/MESH_drainage_database.nc'
+output_ddb  = 'D:/programing/python/vector_based_routing/Output/MESH_drainage_database_11gru.nc'
 
 # %% reading the input landcover
 lc = gpd.read_file(in_lc)
@@ -43,24 +44,34 @@ lc.plot(ax = ax1, facecolor = 'None', edgecolor = 'red')
 new_rank, drainage_db = new_rank_extract(input_ddb)
 
 # %% land class types 
-lc_type = ['Urban','Glacier','Barrenland','Cropland','Grass','Forest','Water']
+# 6 GRU types 
+#lc_type = ['Urban','Glacier','Barrenland','Cropland','Grass','Forest','Water']
+
+# 11 GRU types
+lc_type = ['Urban','Glacier','Barrenland_SF','Barrenland_NF', 'Barrenland_Flat',
+           'Cropland','Grass','Forest_SF','Forest_NF','Forest_Flat','Water']
+
 
 # %% verify list of lc types
 m = len(lc_type) + 1
 st = [];
+p  = [];
 for i in (range(1,m)):
     st1 =   'NALCMS'+'_'+ str(i)
     st = np.append(st, st1)
     fid = np.where(lc.columns == st1)[0]
     if (fid.size == 0):
         print ('land cover %s is not the list of extracted histogram' % lc_type[i-1])
-        p = i-1 
-
+        # this should be modified if mutiple lc types are not in the list
+        p = i-1
+        
 # adding lancover dump
 st1 =   'NALCMS'+'_'+ 'Dump'
 st = np.append(st, st1)
 
-del lc_type[p]
+if (len(p) != 0) :
+    del lc_type[p]
+
 lc_type = np.append(lc_type, 'Dump')    
 
 # %% extract indices of lc based on the drainage database
@@ -76,11 +87,15 @@ ind = np.int32(ind)
 
 #%% calculate fractions
 # reorder lc dataframe based on MESH RANK 
-lc_frac = lc.values[ind , 4 : 10]
+#lc_frac = lc.values[ind , 4 : 10]
+lc_frac = lc.values[ind , 5 : 5+m-1]
+
 lc_frac = np.append(lc_frac, np.zeros((n , 1)) , axis = 1)
 
 lc_sum = np.sum(lc_frac, axis = 1)
-lc_sum = np.transpose(np.tile(lc_sum, (7,1)))
+#lc_sum = np.transpose(np.tile(lc_sum, (7,1)))
+
+lc_sum = np.transpose(np.tile(lc_sum, (m,1)))
 
 lc_frac = np.divide(lc_frac, lc_sum)
 
@@ -94,7 +109,7 @@ tt = drainage_db['time'].values
 lc_ds =  xs.Dataset(
     {
         "GRU": (["subbasin", "gru"], lc_frac),
-        "LandUse": (["ngru"], lc_type),
+        "LandUse": (["gru"], lc_type),
     },
     coords={
         "lon": (["subbasin"], lon),

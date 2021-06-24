@@ -17,21 +17,36 @@ Created on Tue Mar 23 16:03:34 2021
 #       Name of the output data file including extension
 #       (e.g., 'WR_runoff.nc').
 @author: Daniel Princz
+last modified 
+        6/4/2021
+        1) removed reading SUMMA runoff inputs and saving to WR_runoff  
+        2) change value of outlet from NaN to zero to be consistent with 
+        network topology extracted from easymore
+        6/7/2021
+        1) adding minimum channel slope threshold 
+        6/15/2021
+        1) adding sanity checks to see if the reordering is applied correctly
+        2) appending Rank and Next to each subbasin 
+        6/22/2021
+        changed the minimum slope value 
 """
 #%% Required packages.
 import os
 import numpy as np
 import xarray as xs
+import geopandas as gpd
 from datetime import date
- 
+import matplotlib.pyplot as plt
+
 #%% File names.
-input_drainage_database  = 'Input/network_topology_Bow_Banff.nc'
-input_data               = 'Input/bow_distributed_default_timestep.nc'
-output_drainage_database = 'Output/MESH_drainage_database.nc'
-output_parameter_file    = 'Output/MESH_parameters.nc'
-output_data              = 'Output/WR_runoff.nc'
-rank_data                = 'Output/new_rank.csv'
- 
+# todo :  these inputs should be read from a parameter file 
+#input_drainage_database  = 'Input/network_topology_Bow_Banff.nc'
+input_drainage_database  = 'Input/network_topology_Fraser.nc'
+output_drainage_database = 'Output/Fraser_MESH_drainage_database.nc'
+output_parameter_file    = 'Output/Fraser_MESH_parameters.nc'
+input_shp                = 'D:/Fraser/Basin_Boundary/easymore/FRASER_08MH126_cat_fixgeo.shp'
+output_shp               = 'D:/Fraser/Basin_Boundary/easymore/FRASER_08MH126_cat_fixgeo_edit.shp'
+
 # %%% Reindexing SUMMA/mizuRoute files %%%
 
 # %% Opening and loading data from the 'topology' file 
@@ -41,12 +56,7 @@ err = 0
 #% Check if 'input_drainage_database' exists.
 if (not os.path.exists(input_drainage_database)):
     print("ERROR: The input file cannot be found: %s" % input_drainage_database)
-    err = 1
- 
-# Check if 'input_data' exists.
-if (not os.path.exists(input_data)):
-    print("ERROR: The input file cannot be found: %s" % input_data)
-    err = 1
+    err = 1 
  
 # Exit if errors were found.
 if (err != 0): exit()
@@ -54,18 +64,15 @@ if (err != 0): exit()
 # Warn if overwriting 'input_drainage_database'.
 if (input_drainage_database == output_drainage_database):
     print("WARNING: Existing input file will be overwritten: %s" % input_drainage_database)
- 
-# Warn if overwriting 'input_data'.
-if (input_data == output_data):
-    print("WARNING: Existing input file will be overwritten: %s" % input_data)
- 
+  
 #% Import the drainage database then close the connection to the file.
 drainage_db = xs.open_dataset(input_drainage_database)
 drainage_db.close()
  
 # Count the number of outlets (where data is 'nan').
-outlets = np.where(np.isnan(drainage_db['tosegment'].values))[0]
- 
+# outlets = np.where(np.isnan(drainage_db['tosegment'].values))[0]
+outlets = np.where(drainage_db['tosegment'].values == 0)[0] 
+
 # Checks.
 err = 0
 if (len(outlets) == 0):
@@ -125,12 +132,62 @@ for m in ['basin_area', 'length', 'slope', 'lon', 'lat', 'hruid', 'seg_id', 'seg
 # Reorder the new 'Next'.
 new_next = np.array(new_next)[new_rank]
 
+#%% sanity check to verify the next of upstreams are defined properly and check 
+# whether the reordering is applied correctly
+segid = drainage_db['seg_id'].values
+tosegment = drainage_db['tosegment'].values
+
+r = np.where(tosegment == 78005280)[0]
+# upstream segids
+print(segid[r])
+
+# double check the id of the downstream segid
+r2 = new_next[r][0]
+print(r2)
+# row numbers are obtained from Rank&Next -1 
+print(segid[r2-1])
+
+# %% check if channel slope values match the minimum threshold 
+min_slope = 0.000001
+drainage_db['slope'].values[drainage_db['slope'].values < min_slope] = min_slope
+
 # %% Adding the updated Rank and Next variables to the file
 # Add new 'Rank' and 'Next' attributes.
+# note : the Next of the outlet is zero. 
+
 drainage_db['Rank'] = (['n'], np.array(range(1, len(new_rank) + 1), dtype = 'int32')) # ordered list from 1:NA
 drainage_db['Rank'].attrs.update(standard_name = 'Rank', long_name = 'Element ID', units = '1', _FillValue = -1)
 drainage_db['Next'] = (['n'], new_next.astype('int32')) # reordered 'new_next'
 drainage_db['Next'].attrs.update(standard_name = 'Next', long_name = 'Receiving ID', units = '1', _FillValue = -1)
+
+# %% reading the subbasin shape file and appending other variable and rename some variables  
+shp_basin = gpd.read_file(input_shp)
+
+n = len(segid)
+ind = []
+
+for i in range(n):
+    fid = np.where(np.int32(shp_basin['COMID'].values) == segid[i])[0]
+    ind = np.append(ind, fid)
+
+ind = np.int32(ind)    
+
+shp_basin['Rank'] = 0
+shp_basin['Next'] = 0
+shp_basin['ChnLengthm'] = 0.0
+shp_basin['ChnlSlope']  = 0.0
+
+shp_basin['Rank'].values[ind] = drainage_db['Rank'].values.copy()
+shp_basin['Next'].values[ind] = drainage_db['Next'].values.copy()
+shp_basin['ChnLengthm'].values[ind] = drainage_db['length'].values.copy() 
+shp_basin['ChnlSlope'].values[ind]  = drainage_db['slope'].values.copy() 
+
+# convert subbasin area to m2
+shp_basin.unitarea *= 10.**6
+shp_basin = shp_basin.rename({"unitarea" : "unitaream2"}, axis = 1)
+
+# save geodatabase 
+shp_basin.to_file(output_shp)
 
 # %% Adding missing attributes and renaming variables
 # Add 'axis' and missing attributes for the 'lat' variable.
@@ -175,68 +232,6 @@ drainage_db.attrs['featureType'] = 'point'
 # Save the updated variables to file.
 drainage_db.to_netcdf(output_drainage_database)
 
-# %%% Creating "WR_runoff.nc" from the data file %%% 
-
-# %% reorder and save runoff data 
-
-# Import the data then close the connection to the file.
-forcing_data = xs.open_dataset(input_data)
-forcing_data.close()
- 
-# Reorder the arrays using the new index (via 'new_rank').
-for m in ['averageRoutedRunoff']:
-     
-    # Must consider the order of the 'time' dimension.
-    if (forcing_data[m].dims[0] == 'time'):
-        forcing_data[m].values = forcing_data[m].values[:, new_rank]
-    else:
-        forcing_data[m].values = forcing_data[m].values[new_rank, :]
- 
-# Transpose 'averageRoutedRunoff' to match the desired order of dimensions.
-if (forcing_data['averageRoutedRunoff'].dims[0] == 'time'):
-    v = forcing_data['averageRoutedRunoff'].values.transpose()
-else:
-    v = forcing_data['averageRoutedRunoff'].values
- 
-# Define the xarray.
-RFF = xs.DataArray(v, coords = dict(time = (['time'], 
-     forcing_data['time'].values.copy()), lat = (['subbasin'], 
-     drainage_db['lat'].values.copy()), lon = (['subbasin'], 
-     drainage_db['lon'].values.copy())), dims = ['subbasin', 'time'])
- 
-# Convert the rate in [m s**-1] to amount in [mm] using the same time-stepping (hourly in this case).
-RFF.values *= 1000.0*3600.0
- 
-# Update the 'RFF' attributes (including the updated units).
-RFF.attrs.update(units = 'mm', grid_mapping = 'crs')
- 
-# Override the encoding of 'RFF' to specify 'time' in the list of 'coordinates' (omitted if done automatically).
-RFF.encoding['coordinates'] = 'time lon lat'
- 
-# Create a new data file using fields from 'drainage_db'.
-data_out = xs.Dataset({'RFF': RFF}, attrs = dict(Conventions = 'CF-1.6', featureType = 'timeSeries'))
- 
-# Update attributes.
-data_out['time'].attrs.update(standard_name = 'time', axis = 'T')
-data_out['lat'].attrs.update(standard_name = 'latitude', units = 'degrees_north', axis = 'Y')
-data_out['lon'].attrs.update(standard_name = 'longitude', units = 'degrees_east', axis = 'X')
- 
-# Override the encoding of 'time' to specify a 'gregorian' calendar (MESH might not recognize 'proleptic_gregorian').
-data_out['time'].encoding['calendar'] = 'gregorian'
- 
-# Define a variable for the points and set the 'timeseries_id' (required for some viewers).
-data_out['subbasin'] = (['subbasin'], drainage_db['seg_id'].values.astype(np.int32).astype('S20'))
-data_out['subbasin'].attrs['cf_role'] = 'timeseries_id'
- 
-# Copy 'crs' from 'drainage_db'.
-data_out['crs'] = drainage_db['crs'].copy()
- 
-# Override the file 'encoding' to define 'time' as an 'UNLIMITED' dimension.
-data_out.encoding.update(unlimited_dims = 'time')
- 
-# Save the new dataset to file.
-data_out.to_netcdf(output_data)
-
 # %%% Save "manning" (R2N) to "MESH_parameters.nc" %%% 
 
 # %% save manning 
@@ -266,4 +261,3 @@ parameters_out.to_netcdf(output_parameter_file)
 
 # Print end of script message.
 print('\nProcessing has completed.')
-

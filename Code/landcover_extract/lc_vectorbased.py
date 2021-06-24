@@ -13,6 +13,7 @@ Revision History
     name from 'lc_frac' to 'GRU'. 2) Added LandUse variable
     20210505 -- append the LandUse information to drainage_ddb 
     20210506-- changed 'ngru' dimension to 'gru' to be consistent with MESH code 
+    20210604-- modified I/O and variables for Fraser application 
 See also 
     lc_extract.py    
 Reference 
@@ -27,11 +28,19 @@ from   datetime import date
 from   summa_reindex import new_rank_extract
 
 # %% directory of input files
+# todo : the input and output variables are harcode. it should be read from an input file
+# bowBanff application
 #in_lc       = 'D:/Basin_setups/BowBanff/LC/intersect_output/bow_NALCMS_LC_intersect.shp'
-in_lc       = 'D:/Basin_setups/BowBanff/LC/intersect_output/bow_NALCMS_LC_intersect_11GRU.shp'
-input_ddb   = 'D:/programing/python/vector_based_routing/Input/network_topology_Bow_Banff.nc'
-out_lc      = 'D:/programing/python/vector_based_routing/Output/MESH_LC_FRAC.nc'
-output_ddb  = 'D:/programing/python/vector_based_routing/Output/MESH_drainage_database_11gru.nc'
+#in_lc       = 'D:/Basin_setups/BowBanff/LC/intersect_output/bow_NALCMS_LC_intersect_11GRU.shp'
+# input_ddb   = 'D:/programing/python/vector_based_routing/Input/network_topology_Bow_Banff.nc'
+# out_lc      = 'D:/programing/python/vector_based_routing/Output/MESH_LC_FRAC.nc'
+# output_ddb  = 'D:/programing/python/vector_based_routing/Output/MESH_drainage_database_11gru.nc'
+
+# Fraser 
+in_lc       = 'D:/Fraser/LCC/fraser_extends_2010/images/Fraser_NALCMS_LC_intersect_12GRU.shp'
+input_ddb   = 'D:/programing/python/vector_based_routing/Input/network_topology_Fraser.nc'
+out_lc      = 'D:/programing/python/vector_based_routing/Output/Fraser_MESH_LC_FRAC.nc'
+output_ddb  = 'D:/programing/python/vector_based_routing/Output/Fraser_MESH_drainage_database_12gru.nc'
 
 # %% reading the input landcover
 lc = gpd.read_file(in_lc)
@@ -44,12 +53,17 @@ lc.plot(ax = ax1, facecolor = 'None', edgecolor = 'red')
 new_rank, drainage_db = new_rank_extract(input_ddb)
 
 # %% land class types 
+# todo : the gru names should be read from a file 
 # 6 GRU types 
 #lc_type = ['Urban','Glacier','Barrenland','Cropland','Grass','Forest','Water']
 
-# 11 GRU types
-lc_type = ['Urban','Glacier','Barrenland_SF','Barrenland_NF', 'Barrenland_Flat',
-           'Cropland','Grass','Forest_SF','Forest_NF','Forest_Flat','Water']
+# 11 GRU types Bow 
+# lc_type = ['Urban','Glacier','Barrenland_SF','Barrenland_NF', 'Barrenland_Flat',
+#            'Cropland','Grass','Forest_SF','Forest_NF','Forest_Flat','Water']
+
+# 12 GRU Fraser 
+lc_type = ['needleleaf-forest','broadleaf-forest','Mixed-forest','shrubland','grassland','Lichen-moss',
+           'Wetland','Cropland','Barrenland','Urban','Water','SnowIce']
 
 
 # %% verify list of lc types
@@ -87,8 +101,12 @@ ind = np.int32(ind)
 
 #%% calculate fractions
 # reorder lc dataframe based on MESH RANK 
-#lc_frac = lc.values[ind , 4 : 10]
-lc_frac = lc.values[ind , 5 : 5+m-1]
+# todo: this column numbers should not be hard coded 
+lc_frac = lc.values[ind , 2 : 2+m-1]
+
+# Note : when it starts from columns 5, when an extra Non lc fractions are generated
+# lc_frac = lc.values[ind , 5 : 5+m-1]
+
 
 lc_frac = np.append(lc_frac, np.zeros((n , 1)) , axis = 1)
 
@@ -154,6 +172,7 @@ drainage_db["LandUse"] = (["gru"], lc_type)
 # Set the 'coords' of the dataset to the new axes.
 drainage_db = drainage_db.set_coords(['time', 'lon', 'lat'])
 
+# I added this to test whether they may not be required
 drainage_db.to_netcdf(output_ddb)
  
 # %% Save the new dataset to file.

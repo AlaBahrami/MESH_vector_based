@@ -1,0 +1,744 @@
+ MESH 1.4 ---  (1773)
+ 
+ READING: MESH_drainage_database.nc
+   The projection of the file is 'LATLONG'.
+   2 dimensions found in the file.
+   17 variables found in the file.
+   WARNING: The variable 'GridArea' being read from file as 'double' is being transferred to a variable of lower precision ('float'). Truncation may occur.
+   WARNING: The variable 'ChnlLength' being read from file as 'double' is being transferred to a variable of lower precision ('float'). Truncation may occur.
+   WARNING: The variable 'ChnlSlope' being read from file as 'double' is being transferred to a variable of lower precision ('float'). Truncation may occur.
+   WARNING: The variable 'lon' being read from file as 'double' is being transferred to a variable of lower precision ('float'). Truncation may occur.
+   WARNING: The variable 'lat' being read from file as 'double' is being transferred to a variable of lower precision ('float'). Truncation may occur.
+   WARNING: The variable 'GRU' being read from file as 'double' is being transferred to a variable of lower precision ('float'). Truncation may occur.
+   REMARK: 'IAK' is missing in the file. A single river class is assumed.
+   Active variables in the file: 17
+   Number of land tiles (NML): 465
+           Tile ID            Grid             GRU
+                 1               1               2
+                 2               1               3
+                 3               1               4
+                 4               1               5
+                 5               1               7
+                 6               1               8
+                 7               1               9
+                 8               1              10
+                 9               1              11
+                10               2               2
+                11               2               3
+                12               2               4
+                13               2               5
+                14               2               7
+                15               2               8
+                16               2               9
+                17               2              10
+                18               2              11
+                19               3               1
+                20               3               2
+                21               3               3
+                22               3               4
+                23               3               5
+                24               3               6
+                25               3               7
+                26               3               8
+                27               3               9
+                28               3              10
+                29               3              11
+                30               4               1
+                31               4               2
+                32               4               3
+                33               4               4
+                34               4               5
+                35               4               7
+                36               4               8
+                37               4               9
+                38               4              10
+                39               4              11
+                40               5               2
+                41               5               3
+                42               5               4
+                43               5               5
+                44               5               7
+                45               5               8
+                46               5               9
+                47               5              10
+                48               5              11
+                49               6               2
+                50               6               3
+                51               6               4
+                52               6               5
+                53               6               7
+                54               6               8
+                55               6               9
+                56               6              10
+                57               6              11
+                58               7               2
+                59               7               3
+                60               7               4
+                61               7               5
+                62               7               6
+                63               7               7
+                64               7               8
+                65               7               9
+                66               7              10
+                67               7              11
+                68               8               1
+                69               8               2
+                70               8               3
+                71               8               4
+                72               8               5
+                73               8               6
+                74               8               7
+                75               8               8
+                76               8               9
+                77               8              10
+                78               8              11
+                79               9               2
+                80               9               3
+                81               9               4
+                82               9               5
+                83               9               6
+                84               9               7
+                85               9               8
+                86               9               9
+                87               9              10
+                88               9              11
+                89              10               8
+                90              10              10
+                91              11               1
+                92              11               2
+                93              11               3
+                94              11               4
+                95              11               5
+                96              11               6
+                97              11               7
+                98              11               8
+                99              11               9
+               100              11              10
+               101              11              11
+               102              12               1
+               103              12               2
+               104              12               3
+               105              12               4
+               106              12               5
+               107              12               6
+               108              12               7
+               109              12               8
+               110              12               9
+               111              12              10
+               112              12              11
+               113              13               1
+               114              13               2
+               115              13               3
+               116              13               4
+               117              13               5
+               118              13               6
+               119              13               7
+               120              13               8
+               121              13               9
+               122              13              10
+               123              13              11
+               124              14               1
+               125              14               5
+               126              14               7
+               127              14               8
+               128              14               9
+               129              14              10
+               130              14              11
+               131              15               1
+               132              15               2
+               133              15               3
+               134              15               4
+               135              15               5
+               136              15               7
+               137              15               8
+               138              15               9
+               139              15              10
+               140              15              11
+               141              16               1
+               142              16              10
+               143              17               1
+               144              17               2
+               145              17               3
+               146              17               4
+               147              17               5
+               148              17               6
+               149              17               7
+               150              17               8
+               151              17               9
+               152              17              10
+               153              17              11
+               154              18               1
+               155              18               3
+               156              18               5
+               157              18               7
+               158              18               8
+               159              18               9
+               160              18              10
+               161              18              11
+               162              19               1
+               163              19               2
+               164              19               3
+               165              19               4
+               166              19               5
+               167              19               7
+               168              19               8
+               169              19               9
+               170              19              10
+               171              19              11
+               172              20               1
+               173              20               3
+               174              20               5
+               175              20               7
+               176              20               8
+               177              20               9
+               178              20              10
+               179              20              11
+               180              21               2
+               181              21               3
+               182              21               4
+               183              21               5
+               184              21               6
+               185              21               7
+               186              21               8
+               187              21               9
+               188              21              10
+               189              21              11
+               190              22               2
+               191              22               3
+               192              22               4
+               193              22               5
+               194              22               6
+               195              22               7
+               196              22               8
+               197              22               9
+               198              22              10
+               199              22              11
+               200              23               1
+               201              23               2
+               202              23               3
+               203              23               4
+               204              23               5
+               205              23               6
+               206              23               7
+               207              23               8
+               208              23               9
+               209              23              10
+               210              23              11
+               211              24               1
+               212              24               3
+               213              24               4
+               214              24               5
+               215              24               6
+               216              24               7
+               217              24               8
+               218              24               9
+               219              24              10
+               220              24              11
+               221              25               1
+               222              25               3
+               223              25               4
+               224              25               5
+               225              25               6
+               226              25               7
+               227              25               8
+               228              25               9
+               229              25              10
+               230              25              11
+               231              26               1
+               232              26               3
+               233              26               4
+               234              26               5
+               235              26               6
+               236              26               7
+               237              26               8
+               238              26               9
+               239              26              10
+               240              26              11
+               241              27               3
+               242              27               4
+               243              27               5
+               244              27               7
+               245              27               8
+               246              27               9
+               247              27              10
+               248              27              11
+               249              28               2
+               250              28               3
+               251              28               4
+               252              28               5
+               253              28               7
+               254              28               8
+               255              28               9
+               256              28              10
+               257              28              11
+               258              29               2
+               259              29               3
+               260              29               4
+               261              29               5
+               262              29               7
+               263              29               8
+               264              29               9
+               265              29              10
+               266              29              11
+               267              30               2
+               268              30               3
+               269              30               4
+               270              30               5
+               271              30               7
+               272              30               8
+               273              30               9
+               274              30              10
+               275              30              11
+               276              31               1
+               277              31               2
+               278              31               3
+               279              31               4
+               280              31               5
+               281              31               6
+               282              31               7
+               283              31               8
+               284              31               9
+               285              31              10
+               286              31              11
+               287              32               1
+               288              32               3
+               289              32               4
+               290              32               5
+               291              32               6
+               292              32               7
+               293              32               8
+               294              32               9
+               295              32              10
+               296              32              11
+               297              33               3
+               298              33               4
+               299              33               5
+               300              33               6
+               301              33               7
+               302              33               8
+               303              33               9
+               304              33              10
+               305              33              11
+               306              34               3
+               307              34               4
+               308              34               5
+               309              34               7
+               310              34               8
+               311              34               9
+               312              34              10
+               313              35               3
+               314              35               4
+               315              35               5
+               316              35               7
+               317              35               8
+               318              35               9
+               319              35              10
+               320              35              11
+               321              36               3
+               322              36               4
+               323              36               5
+               324              36               7
+               325              36               8
+               326              36               9
+               327              36              10
+               328              37               1
+               329              37               2
+               330              37               3
+               331              37               4
+               332              37               5
+               333              37               7
+               334              37               8
+               335              37               9
+               336              37              10
+               337              37              11
+               338              38               1
+               339              38               3
+               340              38               4
+               341              38               5
+               342              38               6
+               343              38               7
+               344              38               8
+               345              38               9
+               346              38              10
+               347              38              11
+               348              39               1
+               349              39               3
+               350              39               4
+               351              39               5
+               352              39               6
+               353              39               7
+               354              39               8
+               355              39               9
+               356              39              10
+               357              39              11
+               358              40               3
+               359              40               4
+               360              40               5
+               361              40               7
+               362              40               8
+               363              40               9
+               364              40              10
+               365              41               1
+               366              41               3
+               367              41               4
+               368              41               5
+               369              41               6
+               370              41               7
+               371              41               8
+               372              41               9
+               373              41              10
+               374              41              11
+               375              42               1
+               376              42               3
+               377              42               4
+               378              42               5
+               379              42               6
+               380              42               7
+               381              42               8
+               382              42               9
+               383              42              10
+               384              42              11
+               385              43               1
+               386              43               3
+               387              43               4
+               388              43               5
+               389              43               6
+               390              43               7
+               391              43               8
+               392              43               9
+               393              43              10
+               394              43              11
+               395              44               1
+               396              44               3
+               397              44               4
+               398              44               5
+               399              44               6
+               400              44               7
+               401              44               8
+               402              44               9
+               403              44              10
+               404              44              11
+               405              45               3
+               406              45               4
+               407              45               5
+               408              45               6
+               409              45               7
+               410              45               8
+               411              45               9
+               412              45              10
+               413              45              11
+               414              46               3
+               415              46               4
+               416              46               5
+               417              46               7
+               418              46               8
+               419              46               9
+               420              46              10
+               421              47               3
+               422              47               4
+               423              47               5
+               424              47               7
+               425              47               8
+               426              47               9
+               427              47              10
+               428              47              11
+               429              48               1
+               430              48               3
+               431              48               4
+               432              48               5
+               433              48               6
+               434              48               7
+               435              48               8
+               436              48               9
+               437              48              10
+               438              48              11
+               439              49               1
+               440              49               3
+               441              49               4
+               442              49               5
+               443              49               6
+               444              49               7
+               445              49               8
+               446              49               9
+               447              49              10
+               448              49              11
+               449              50               1
+               450              50               3
+               451              50               4
+               452              50               5
+               453              50               6
+               454              50               7
+               455              50               8
+               456              50               9
+               457              50              10
+               458              50              11
+               459              51               1
+               460              51               3
+               461              51               7
+               462              51               8
+               463              51               9
+               464              51              10
+               465              51              11
+   Number of water tiles (NMW): 0
+   Total number of grids: 51
+   Total number of grids inside the basin: 50
+   Side length of grid: 1.000000 m
+   Number of GRUs: 11
+   Number of land-based tiles: 465
+   Number of river classes: 1
+ READING: MESH_input_soil_levels.txt
+   Number of soil layers: 3
+             Level   Thickness (m)      Bottom (m)
+                 1   0.1000000       0.1000000
+                 2   0.2500000       0.3500000
+                 3    3.750000        4.100000
+ 
+ READING: Resume run configuration
+   RESUMEFLAG is not active: RESUMEFLAG off
+   SAVERESUMEFLAG is not active: SAVERESUMEFLAG off
+ READING: MESH_parameters_CLASS.ini
+ READING: MESH_parameters_hydrology.ini
+ READING: MESH_parameters.txt
+   Reading parameter: DTMINUSR.
+   REMARK: Overwriting or updating the existing 'DTMINUSR' value.
+   Active parameters in file: 1
+ READING: MESH_input_streamflow.txt
+   Skipping 274 records.
+   Number of streamflow gauges: 2
+             GAUGE              IY              JX            RANK        DA (km2)
+          05BB001               51               1              51    2216.040
+          05BA001               14               1              14    428.4769
+ READING: Climate forcing variables
+   OPENING: MESH_input_RDRS_200001_201801.nc
+     REMARK: INTERPOLATIONFLAG is active but has no effect. The climate forcing data and model have the same time-step.
+     Skipping 6569 records.
+   OPENING: MESH_input_RDRS_200001_201801.nc
+     REMARK: INTERPOLATIONFLAG is active but has no effect. The climate forcing data and model have the same time-step.
+     Skipping 6569 records.
+   OPENING: MESH_input_RDRS_200001_201801.nc
+     REMARK: INTERPOLATIONFLAG is active but has no effect. The climate forcing data and model have the same time-step.
+     Skipping 6569 records.
+   OPENING: MESH_input_RDRS_200001_201801.nc
+     REMARK: INTERPOLATIONFLAG is active but has no effect. The climate forcing data and model have the same time-step.
+     Skipping 6569 records.
+   OPENING: MESH_input_RDRS_200001_201801.nc
+     REMARK: INTERPOLATIONFLAG is active but has no effect. The climate forcing data and model have the same time-step.
+     Skipping 6569 records.
+   OPENING: MESH_input_RDRS_200001_201801.nc
+     REMARK: INTERPOLATIONFLAG is active but has no effect. The climate forcing data and model have the same time-step.
+     Skipping 6569 records.
+   OPENING: MESH_input_RDRS_200001_201801.nc
+     REMARK: INTERPOLATIONFLAG is active but has no effect. The climate forcing data and model have the same time-step.
+     Skipping 6569 records.
+   Diagnostic summary:
+            Variable            Name     File format    Frame length  Blocks in-mem.      No. series       Ref. date           (YJD)       Ref. time
+     FB              MESH_input_RDRS               8              60               1               0 2000/01/01      2000/001        07:00:00.000000
+     FI              MESH_input_RDRS               8              60               1               0 2000/01/01      2000/001        07:00:00.000000
+     PR              MESH_input_RDRS               8              60               1               0 2000/01/01      2000/001        07:00:00.000000
+     TT              MESH_input_RDRS               8              60               1               0 2000/01/01      2000/001        07:00:00.000000
+     UV              MESH_input_RDRS               8              60               1               0 2000/01/01      2000/001        07:00:00.000000
+     P0              MESH_input_RDRS               8              60               1               0 2000/01/01      2000/001        07:00:00.000000
+     HU              MESH_input_RDRS               8              60               1               0 2000/01/01      2000/001        07:00:00.000000
+   PBSM (blowing snow) component is ACTIVE.
+   PBSMFLAG on
+           GRUs ->               1               2               3               4               5               6               7               8               9              10              11
+             Fetch    300.0000        300.0000        1000.000        1000.000        1000.000        1000.000        1000.000        300.0000        300.0000        300.0000        300.0000
+                Ht    6.000000       0.2000000       0.1000000       0.1000000       0.1000000       0.3500000       0.4000000        6.000000        6.000000        6.000000        6.000000
+               N_S    1.000000        1.000000        1.000000        1.000000        1.000000        320.0000        200.0000        1.000000        1.000000        1.000000        1.000000
+               A_S   0.5000000        0.000000       0.3000000E-02   0.3000000E-02   0.3000000E-02   0.3000000E-02   0.3000000E-02   0.5000000       0.5000000       0.5000000        0.000000
+           Distrib    0.000000        1.000000        1.000000        1.000000        1.000000        1.000000        1.000000        0.000000        0.000000        0.000000        1.000000
+   ICEBAL_FREEZE_THRESHOLD (FREZTH) override is ACTIVE.
+       GRU value:     0.000000       -2.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000
+   ICEBAL_SWE_LIMIT (SWELIM) override is ACTIVE.
+       GRU value:     0.000000        2500.000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000
+   ICEBAL_SNOW_DENSITY_LIMIT (SNDENLIM) override is ACTIVE.
+       GRU value:     0.000000        650.0000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000
+   BASEFLOW component is ACTIVE.
+     BASEFLOWFLAG  wf_lzs grid hf=60
+             pwr_iak    2.000000
+             flz_iak   0.1000000E-03
+ READING: outputs_balance.txt
+   Reading output variable: QO
+   Reading output variable: QI
+   Reading output variable: RFF
+   Reading output variable: RFF
+   Output variables: 4
+
+MESH_input_run_options.ini
+
+Configuration flags - specified by user or default values
+ BASINSHORTWAVEFLAG   =            8
+ BASINLONGWAVEFLAG    =            8
+ BASINRAINFLAG        =            8
+ BASINTEMPERATUREFLAG =            8
+ BASINWINDFLAG        =            8
+ BASINPRESFLAG        =            8
+ BASINHUMIDITYFLAG    =            8
+ SHDFILEFLAG          =            5
+ SOILINIFLAG          =            1
+ PREEMPTIONFLAG       =            0
+ SUBBASINFLAG         =            0
+ R2COUTPUTFLAG        =            0
+ OBJFNFLAG            =            0
+ AUTOCALIBRATIONFLAG  =            1
+ WINDOWSIZEFLAG       =            1
+ WINDOWSPACINGFLAG    =            1
+ FROZENSOILINFILFLAG  =            1
+ Reached simulation end date.
+
+End of run prognostic states
+   Number of GRUs:   11
+
+Average values
+   GRU   1:
+    -8.629    -6.609    -0.024     0.000   -11.496     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.136     0.214     0.330     0.202     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   130.973     0.805   213.076     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   2:
+   -12.331   -10.942    -6.992     0.000   -14.471     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.000     0.000     0.000     0.000     0.000     0.000     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   151.167     0.806   223.967     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   3:
+    -8.571    -6.471     2.361     0.000   -11.335     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.111     0.205     0.196     0.070     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   131.315     0.804   212.945     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   4:
+    -8.235    -6.174     2.301     0.000   -11.002     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.133     0.216     0.208     0.051     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   131.801     0.803   213.130     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   5:
+    -8.057    -6.034     2.244     0.000   -10.820     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.144     0.226     0.220     0.039     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   132.241     0.803   213.457     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   6:
+    -9.189    -7.121     1.138     0.000   -11.851     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.215     0.200     0.222     0.022     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   134.879     0.803   214.442     0.104  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   7:
+    -8.299    -6.219     2.301   -33.124   -11.074     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.139     0.221     0.207     0.048     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.001   131.384     0.804   213.013     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   8:
+    -9.170    -6.951     1.954   -28.033   -11.959     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.161     0.233     0.174     0.026     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.649   124.655     0.820   210.308     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   9:
+    -9.092    -6.889     1.836   -28.022   -11.885     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.170     0.241     0.183     0.026     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.650   124.487     0.820   210.126     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU  10:
+    -9.062    -6.906     1.530   -28.039   -11.844     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.177     0.254     0.203     0.031     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.648   125.018     0.820   210.520     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU  11:
+    -3.380    -1.145     3.792     0.000    -6.588     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.076     0.211     0.349     0.195     0.001     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   131.311     0.804   213.192     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+
+Minimum values
+   GRU   1:
+    -9.790    -7.596    -0.385     0.000   -13.246     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.040     0.069     0.129     0.051     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000    94.697     0.798   194.273     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   2:
+   -13.288   -11.857    -7.804     0.000   -15.515     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.000     0.000     0.000     0.000     0.000     0.000     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   118.259     0.798   204.229     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   3:
+   -10.329    -8.400     0.239     0.000   -12.772     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.040     0.111     0.173     0.013     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000    93.702     0.798   193.444     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   4:
+    -9.977    -8.037     0.759     0.000   -12.566     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.040     0.113     0.180     0.004     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000    93.689     0.798   193.437     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   5:
+    -9.964    -8.044     0.741     0.000   -12.497     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.054     0.117     0.191     0.001     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000    93.695     0.798   193.440     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   6:
+   -10.285    -7.915    -0.010     0.000   -13.449     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.192     0.103     0.134     0.000     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000    96.329     0.798   194.692     0.062  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   7:
+   -10.021    -8.056     0.766   -34.143   -12.598     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.040     0.112     0.177     0.003     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.001    93.664     0.798   193.421     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   8:
+   -11.208    -8.565    -0.177   -29.082   -14.396     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.092     0.111     0.095     0.000     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.557    91.132     0.804   192.219     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   9:
+   -11.356    -8.695    -0.113   -29.069   -14.525     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.106     0.111     0.096     0.000     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.557    91.761     0.804   192.236     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU  10:
+   -11.586    -8.966    -0.047   -29.059   -14.722     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.115     0.109     0.094     0.000     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.556    91.821     0.804   192.343     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU  11:
+    -9.332    -7.738     0.244     0.000   -11.819     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.190     0.107     0.055     0.000     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000    92.540     0.798   192.662     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+
+Maximum values
+   GRU   1:
+    -7.066    -5.044    -0.008     0.000   -10.040     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.197     0.420     0.430     0.314     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   190.143     0.823   244.349     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   2:
+   -11.555   -10.201    -6.419     0.000   -13.524     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.000     0.000     0.000     0.000     0.000     0.000     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   201.490     0.819   248.300     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   3:
+    -6.618    -4.562     3.147     0.000    -9.150     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.159     0.381     0.205     0.152     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   196.404     0.823   246.507     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   4:
+    -5.843    -3.840     3.046     0.000    -8.562     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.173     0.394     0.218     0.157     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   196.420     0.823   246.513     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   5:
+    -5.446    -3.478     2.968     0.000    -8.189     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.178     0.404     0.232     0.144     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   196.462     0.823   246.529     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   6:
+    -5.781    -3.933     2.376     0.000    -8.311     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.246     0.408     0.434     0.163     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   197.075     0.823   246.748     0.278  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   7:
+    -5.857    -3.851     3.016   -31.952    -8.516     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.177     0.395     0.218     0.161     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.001   196.407     0.823   246.509     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   8:
+    -6.756    -4.720     3.289   -26.171    -9.295     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.197     0.436     0.426     0.115     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.698   188.867     0.839   244.277     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU   9:
+    -6.815    -4.784     3.334   -26.173    -9.061     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.204     0.433     0.428     0.178     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.697   189.466     0.839   244.498     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU  10:
+    -6.520    -4.504     3.388   -26.178    -9.088     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.040     0.205     0.421     0.429     0.259     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.697   190.860     0.839   245.008     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+   GRU  11:
+    -1.775     0.000     5.168     0.000    -4.415     0.000  !> TBAR(1:3)/TCAN/TSNO/TPND
+     0.040     0.144     0.228     0.430     0.426     0.022     0.000  !> THLQ(1:3)/THIC(1:3)/ZPND
+     0.000     0.000   193.326     0.823   245.412     0.000  !> RCAN/SNCAN/SNO/ALBS/RHOS/GRO
+ 
+ Basin water balance end of run totals (mm)
+   Total precipitation              =   9866.636
+   Total evapotranspiration         =   3703.628
+   Total runoff                     =   7293.562
+     Overland         =   7101.741
+     Lateral          =   12.89656
+     Drainage (soil)  =   180.5978
+   Change in storage                =   128.5267
+     Initial          =   226.8569
+     Final            =   355.3836
+ 
+ 
+ Program has terminated normally.
+ 
+ Time = 9.463021 minutes (averaging 29.88322 seconds per simulation year).

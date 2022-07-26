@@ -127,5 +127,7 @@ forc_vec['subbasin'] = (['subbasin'], db['seg_id'].values.astype(np.int32).astyp
 forc_vec['subbasin'].attrs['cf_role'] = 'timeseries_id'
 
 #%% save to netcdf 
-forc_vec.to_netcdf(forcing_dir+domain_name+'_MESH_'+forcing_name)
+comp = dict(zlib=True, complevel=6)
+encoding = {var: comp for var in forc_vec.data_vars}
+forc_vec.to_netcdf(forcing_dir+domain_name+'_MESH_'+forcing_name, encoding=encoding)
 print('--%s seconds--' %(time.time() - start_time))
